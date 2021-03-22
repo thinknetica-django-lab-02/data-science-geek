@@ -7,3 +7,10 @@ env
 # Python
 .idea
 **/__pycache__
+*.pyc
+
+# Django
+/static/
+
+# БД
+db.sqlite3
