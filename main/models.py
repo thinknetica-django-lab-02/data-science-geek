@@ -13,7 +13,7 @@ class Goods(models.Model):
     tags = models.ManyToManyField('GoodsTag', related_name="goods")
 
     class Meta:
-        ordering = ['is_visible', 'name', 'price']
+        ordering = ['is_sale', 'name', 'price']
         verbose_name = 'Категория товара'
         verbose_name_plural = 'Категории товаров'
 
@@ -65,6 +65,6 @@ class Seller(models.Model):
         return f'{self.first_name} {self.last_name}'
 
     class Meta:
-        ordering = ['name']
+        ordering = ['first_name', 'last_name']
         verbose_name = 'Продавец'
         verbose_name_plural = 'Продавцы'
