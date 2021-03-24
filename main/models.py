@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 
@@ -44,7 +46,7 @@ class GoodsCategory(models.Model):
 
 class GoodsTag(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    not_empty_filed = models.DateField()
+    not_empty_filed = models.DateField(default=datetime.date.today())
 
     class Meta:
         ordering = ['name']
