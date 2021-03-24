@@ -68,3 +68,6 @@ class Seller(models.Model):
         ordering = ['first_name', 'last_name']
         verbose_name = 'Продавец'
         verbose_name_plural = 'Продавцы'
+
+    def __str__(self):
+        return self.full_name
