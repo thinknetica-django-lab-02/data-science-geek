@@ -58,7 +58,7 @@ class Seller(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
-    birth_date = models.DateField(blank=True)
+    birth_date = models.DateField(blank=True, null=True)
 
     @property
     def full_name(self):
