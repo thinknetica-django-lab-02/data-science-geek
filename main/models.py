@@ -44,6 +44,7 @@ class GoodsCategory(models.Model):
 
 class GoodsTag(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    not_empty_filed = models.DateField()
 
     class Meta:
         ordering = ['name']
