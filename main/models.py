@@ -3,7 +3,7 @@ from django.db import models
 
 class Goods(models.Model):
     name = models.CharField(max_length=100)
-    article = models.CharField(max_length=20, blank=True, unique=True)
+    article = models.CharField(max_length=20, null=True, blank=True, unique=True)
     price = models.DecimalField(max_digits=12, decimal_places=2)
     quantity = models.IntegerField(default=1)
     dt = models.DateField()
