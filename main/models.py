@@ -3,7 +3,7 @@ from django.db import models
 
 class Goods(models.Model):
     name = models.CharField(max_length=100)
-    article = models.CharField(max_length=20, blank=True, unique=True)
+    article = models.CharField(max_length=20, null=True, blank=True, unique=True)
     price = models.DecimalField(max_digits=12, decimal_places=2)
     quantity = models.IntegerField(default=1)
     dt = models.DateField()
@@ -58,7 +58,7 @@ class Seller(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
-    birth_date = models.DateField(blank=True)
+    birth_date = models.DateField(blank=True, null=True)
 
     @property
     def full_name(self):
@@ -68,3 +68,6 @@ class Seller(models.Model):
         ordering = ['first_name', 'last_name']
         verbose_name = 'Продавец'
         verbose_name_plural = 'Продавцы'
+
+    def __str__(self):
+        return self.full_name
