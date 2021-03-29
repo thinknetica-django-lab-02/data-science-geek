@@ -5,6 +5,8 @@ from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOrigina
 from django.contrib.flatpages.forms import FlatpageForm
 from django.contrib.flatpages.models import FlatPage
 
+from main.models import Goods, GoodsCategory, GoodsTag, Seller
+
 
 class CKEditorFlatpageForm(FlatpageForm):
     content = forms.CharField(widget=CKEditorWidget())
@@ -16,3 +18,8 @@ class FlatPageAdmin(FlatPageAdminOriginal):
 
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
+
+admin.site.register(Goods)
+admin.site.register(GoodsCategory)
+admin.site.register(GoodsTag)
+admin.site.register(Seller)

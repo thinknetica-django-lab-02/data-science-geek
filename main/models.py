@@ -1,6 +1,7 @@
 import datetime
 
 from django.db import models
+from django.urls import reverse
 
 
 class Goods(models.Model):
@@ -16,11 +17,14 @@ class Goods(models.Model):
 
     class Meta:
         ordering = ['is_sale', 'name', 'price']
-        verbose_name = 'Категория товара'
-        verbose_name_plural = 'Категории товаров'
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('goods-detail', args=[self.id])
 
     @property
     def in_stock(self):
@@ -42,6 +46,9 @@ class GoodsCategory(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('goods-by-category', args=[self.name])
 
 
 class GoodsTag(models.Model):
