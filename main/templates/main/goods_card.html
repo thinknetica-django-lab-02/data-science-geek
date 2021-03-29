@@ -1,5 +1,5 @@
 <div class="card-body">
-  <img src="http://via.placeholder.com/180" class="card-img-top mb-2" width="100%"
+  <img src="{{ goods.image.url }}" class="card-img-top mb-2" width="100%"
        height="180px" alt="...">
   <h5 class="card-title">{{ goods.price }} ₽</h5>
   <p class="card-text"><a href="{{ goods.get_absolute_url }}" class="text-dark">{{ goods.name }}</a></p>

@@ -26,7 +26,7 @@ class GoodsListByCategoryView(ListView):
     template_name = 'main/goods_grid.html'
 
     def get_queryset(self):
-        self.category = get_object_or_404(GoodsCategory, name=self.kwargs['category_name'])
+        self.category = get_object_or_404(GoodsCategory, slug=self.kwargs['slug'])
         return Goods.objects.filter(category=self.category)
 
     def get_context_data(self, **kwargs):
@@ -40,7 +40,7 @@ class GoodsDetailView(DetailView):
     template_name = 'main/goods_detail.html'
 
     def get_object(self, **kwargs):
-        self.goods = get_object_or_404(Goods, id=self.kwargs['pk'])
+        self.goods = get_object_or_404(Goods, slug=self.kwargs['slug'])
         return self.goods
 
     def get_context_data(self, **kwargs):
