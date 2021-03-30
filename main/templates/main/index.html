@@ -1,8 +1,11 @@
 {% extends "base.html" %}
+{% load custom_tags %}
 {% load flatpages %}
 
 {% block content %}
   {% get_flatpages as flatpages %}
+  Текущее время: {% current_time %}
+
   {% if turn_on_block %}
     <div>
       <b>Передан параметр turn_on_block</b>
