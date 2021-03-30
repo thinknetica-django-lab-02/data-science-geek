@@ -13,7 +13,7 @@ def current_time(format_string='%H:%M'):
     return now.strftime(format_string)
 
 
-@register.inclusion_tag('main/dropdown_menu_categories.html')
+@register.inclusion_tag('main/snippets/dropdown_menu_categories.html')
 def get_categories():
     categories = GoodsCategory.objects.all()
     return {'categories': categories}

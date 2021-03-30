@@ -1,5 +1,6 @@
 {% load custom_tags %}
-<header class="p-3 mb-3 border-bottom">
+<header>
+<div class="p-3 border-bottom">
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none ah_check_tooltip">
@@ -14,10 +15,12 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="{% url 'goods' %}" class="nav-link px-2 ">Все товары</a></li>
+        <li><a href="{% url 'homepage' %}" class="nav-link px-2">Главная</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Категории</a>
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Магазин</a>
           <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'goods' %}">Все товары</a>
+            <hr class="dropdown-divider">
             {% get_categories %}
           </div>
         </li>
@@ -51,4 +54,15 @@
       {% endif %}
     </div>
   </div>
+</div>
+{% url 'homepage' as home %}
+{% if request.get_full_path != home %}
+<div class="p-3" style="background: #efefef">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-start">
+      <span class="fw-normal align-middle">Home > Single Page</span>
+    </div>
+  </div>
+</div>
+{% endif %}
 </header>

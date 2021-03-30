@@ -14,6 +14,7 @@ def index(request):
 class GoodsListView(ListView):
     model = Goods
     template_name = 'main/goods_grid.html'
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,6 +25,7 @@ class GoodsListView(ListView):
 class GoodsListByCategoryView(ListView):
     model = Goods
     template_name = 'main/goods_grid.html'
+    paginate_by = 2
 
     def get_queryset(self):
         self.category = get_object_or_404(GoodsCategory, slug=self.kwargs['slug'])
