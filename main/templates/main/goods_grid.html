@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block h1 %}<h1>{{ title }}</h1>{% endblock %}
+
+{% block content %}
+  <div class="row row-cols-3 g-4">
+    {% if goods_list %}
+      {% for goods in goods_list %}
+        <div class="col">
+          <div class="card">
+            {% include 'main/goods_card.html' with goods=goods %}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      По Вашему запросу товаров не найдено
+    {% endif %}
+  </div>
+{% endblock %}

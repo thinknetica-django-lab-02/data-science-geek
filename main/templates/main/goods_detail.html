@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+{#{% block h1 %}<h1>{{ title }}</h1>{% endblock %}#}
+
+{% block content %}
+
+  <div class="col">
+    <div class="card">
+      {% include 'main/goods_card.html' with goods=goods %}
+    </div>
+  </div>
+
+{% endblock %}
