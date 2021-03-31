@@ -18,6 +18,9 @@ from django.contrib.auth.views import LogoutView
 from django.contrib.flatpages.views import flatpage
 from django.urls import path, include
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 from main.views import index
 
 urlpatterns = [
@@ -28,4 +31,4 @@ urlpatterns = [
     path('goods/', include('main.urls')),
 
     path('logout/', LogoutView.as_view(next_page='homepage'), name='logout'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

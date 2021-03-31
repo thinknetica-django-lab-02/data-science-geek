@@ -1,22 +1,32 @@
-import datetime
-
 from django.db import models
 from django.urls import reverse
+from uuslug import uuslug
 
 
 class Goods(models.Model):
-    name = models.CharField(max_length=100)
-    article = models.CharField(max_length=20, null=True, blank=True, unique=True)
-    price = models.DecimalField(max_digits=12, decimal_places=2)
-    quantity = models.IntegerField(default=1)
-    dt = models.DateField()
-    is_sale = models.BooleanField(default=False)
-    category = models.ForeignKey('GoodsCategory', on_delete=models.CASCADE)
-    seller = models.ForeignKey('Seller', on_delete=models.CASCADE, related_name="goods")
-    tags = models.ManyToManyField('GoodsTag', related_name="goods")
+    name = models.CharField('Название', max_length=100)
+    description = models.TextField('Описание', blank=True)
+    image = models.ImageField('Изображение', upload_to='goods', blank=True)
+    price = models.DecimalField('Цена', max_digits=12, decimal_places=2)
+    quantity = models.IntegerField('Количество', default=1)
+    category = models.ForeignKey('GoodsCategory', on_delete=models.CASCADE,
+                                 verbose_name='Категория')
+    seller = models.ForeignKey('Seller', on_delete=models.CASCADE, related_name="goods",
+                               verbose_name='Продавец')
+    tags = models.ManyToManyField('GoodsTag', related_name="goods",
+                                  verbose_name='Тэги')
+    draft = models.BooleanField('Черновик', default=False)
+
+    slug = models.SlugField(max_length=200, editable=False)
+    article = models.CharField('Артикул', max_length=10, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.article = str(self.id).zfill(6)
+        self.slug = uuslug(self.name, instance=self)
+        super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ['is_sale', 'name', 'price']
+        ordering = ['draft', 'name', 'price']
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
@@ -24,23 +34,21 @@ class Goods(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('goods-detail', args=[self.id])
+        return reverse('goods-detail', args=[self.slug])
 
     @property
-    def in_stock(self):
+    def stock_status(self):
         return 'в наличии' if self.quantity > 0 else 'нет в наличии'
-
-    @property
-    def description(self):
-        return f'{self.name}: {self.price}, {self.article}, {self.in_stock}'
 
 
 class GoodsCategory(models.Model):
-    name = models.CharField(max_length=30, unique=True)
-    is_visible = models.BooleanField(default=False)
+    name = models.CharField('Название', max_length=30, unique=True)
+    slug = models.SlugField('Ссылка', max_length=200, unique=True)
+    image = models.ImageField('Изображение', upload_to='categories', blank=True)
+    draft = models.BooleanField('Черновик', default=False)
 
     class Meta:
-        ordering = ['is_visible', 'name']
+        ordering = ['draft', 'name']
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
@@ -48,12 +56,12 @@ class GoodsCategory(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('goods-by-category', args=[self.name])
+        return reverse('goods-by-category', args=[self.slug])
 
 
 class GoodsTag(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    not_empty_filed = models.DateField(default=datetime.date.today())
+    name = models.CharField('Название', max_length=120, unique=True)
+    slug = models.SlugField(max_length=200, editable=False)
 
     class Meta:
         ordering = ['name']
@@ -63,12 +71,16 @@ class GoodsTag(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.slug = uuslug(self.name, instance=self)
+        super().save(*args, **kwargs)
+
 
 class Seller(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    birth_date = models.DateField(blank=True, null=True)
+    first_name = models.CharField('Имя', max_length=100)
+    last_name = models.CharField('Фамилия', max_length=100)
+    birth_date = models.DateField('Дата рождения', blank=True, null=True)
+    email = models.EmailField('E-mail', max_length=100)
 
     @property
     def full_name(self):

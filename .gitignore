@@ -11,6 +11,7 @@ env
 
 # Django
 /static/
+/media/
 
 # БД
 db.sqlite3
