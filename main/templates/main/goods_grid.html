@@ -20,7 +20,7 @@
     {% endif %}
   </div>
 
-  {% include 'main/snippets/pagination.html' %}
+  {% include 'main/snippets/goods_pagination.html' %}
 
 {% endblock %}
 
@@ -29,7 +29,7 @@
   <div class="row">
     <div class="card-body">
       <span class="h4">Тэги</span>
-      {% get_tags_cloud %}
+      {% goods_tags_buttons %}
     </div>
   </div>
 

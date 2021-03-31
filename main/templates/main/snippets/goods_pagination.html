@@ -13,29 +13,29 @@
         <ul class="pagination" style="margin-bottom: 0 !important;">
           {% if page_obj.has_previous %}
             <li class="page-item">
-              <a class="page-link" href="{% set_get_params request.build_absolute_uri page=page_obj.previous_page_number%}">
+              <a class="page-link" href="{% add_get_params_to_url request.build_absolute_uri page=page_obj.previous_page_number%}">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
             <li class="page-item">
-              <a class="page-link" href="{% set_get_params request.build_absolute_uri page=page_obj.previous_page_number%}">
+              <a class="page-link" href="{% add_get_params_to_url request.build_absolute_uri page=page_obj.previous_page_number%}">
                 {{ page_obj.previous_page_number }}
               </a>
             </li>
           {% endif %}
           <li class="page-item active">
-            <a class="page-link" href="{% set_get_params request.build_absolute_uri page=page_obj.number%}">
+            <a class="page-link" href="{% add_get_params_to_url request.build_absolute_uri page=page_obj.number%}">
               {{ page_obj.number }}
             </a>
           </li>
           {% if page_obj.has_next %}
             <li class="page-item">
-              <a class="page-link" href="{% set_get_params request.build_absolute_uri page=page_obj.next_page_number %}">
+              <a class="page-link" href="{% add_get_params_to_url request.build_absolute_uri page=page_obj.next_page_number %}">
                 {{ page_obj.next_page_number }}
               </a>
             </li>
             <li class="page-item">
-              <a class="page-link" href="{% set_get_params request.build_absolute_uri page=page_obj.next_page_number %}">
+              <a class="page-link" href="{% add_get_params_to_url request.build_absolute_uri page=page_obj.next_page_number %}">
                 <span aria-hidden="true">&raquo;</span>
               </a>
             </li>

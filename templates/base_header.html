@@ -15,7 +15,7 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" href="{% url 'goods' %}">Все товары</a>
             <hr class="dropdown-divider">
-            {% get_categories %}
+            {% goods_categories_links %}
           </div>
         </li>
         <li><a href="{% url 'about' %}" class="nav-link px-2">О нас</a></li>
