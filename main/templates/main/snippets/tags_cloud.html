@@ -1,0 +1,9 @@
+<div class="goods-tags">
+  {% for tag in tags %}
+    {% if request.GET.tag == tag.slug %}
+    <a type="button" class="btn btn-primary btn-sm mb-1" href="?tag={{ tag.slug }}">{{ tag.name }}</a>
+    {% else %}
+    <a type="button" class="btn btn-secondary btn-sm mb-1" href="?tag={{ tag.slug }}">{{ tag.name }}</a>
+    {% endif %}
+  {% endfor %}
+</div>

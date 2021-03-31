@@ -60,7 +60,8 @@ class GoodsCategory(models.Model):
 
 
 class GoodsTag(models.Model):
-    name = models.CharField('Название', max_length=100, unique=True)
+    name = models.CharField('Название', max_length=120, unique=True)
+    slug = models.SlugField(max_length=200, editable=False)
 
     class Meta:
         ordering = ['name']
@@ -69,6 +70,10 @@ class GoodsTag(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = uuslug(self.name, instance=self)
+        super().save(*args, **kwargs)
 
 
 class Seller(models.Model):

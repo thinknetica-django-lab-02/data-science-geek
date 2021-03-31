@@ -1,35 +1,48 @@
-{% if page_obj.paginator.num_pages > 1 %}
-  <nav aria-label="Page navigation example" class="mt-4">
-    <ul class="pagination">
-      {% if page_obj.has_previous %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-            {{ page_obj.previous_page_number }}
-          </a>
-        </li>
-      {% endif %}
-      <li class="page-item active">
-        <a class="page-link" href="?page={{ page_obj.number }}">
-          {{ page_obj.number }}
-        </a>
-      </li>
-      {% if page_obj.has_next %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ page_obj.next_page_number }}">
-            {{ page_obj.next_page_number }}
-          </a>
-        </li>
-        <li class="page-item">
-          <a class="page-link" href="?page={{ page_obj.next_page_number }}">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      {% endif %}
-    </ul>
-  </nav>
-{% endif %}
+{% load custom_tags %}
+
+<div class="mt-4">
+
+    {% if page_obj.paginator.num_pages > 1 %}
+    <div class="border rounded card-body d-flex justify-content-between align-items-center">
+      <span>
+        Показано {{ page_obj.start_index }}-{{ page_obj.end_index }} из {{ page_obj.paginator.count }} товаров
+      </span>
+
+
+      <nav aria-label="Page navigation">
+        <ul class="pagination" style="margin-bottom: 0 !important;">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="{% set_get_params request.build_absolute_uri page=page_obj.previous_page_number%}">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="{% set_get_params request.build_absolute_uri page=page_obj.previous_page_number%}">
+                {{ page_obj.previous_page_number }}
+              </a>
+            </li>
+          {% endif %}
+          <li class="page-item active">
+            <a class="page-link" href="{% set_get_params request.build_absolute_uri page=page_obj.number%}">
+              {{ page_obj.number }}
+            </a>
+          </li>
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="{% set_get_params request.build_absolute_uri page=page_obj.next_page_number %}">
+                {{ page_obj.next_page_number }}
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="{% set_get_params request.build_absolute_uri page=page_obj.next_page_number %}">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+
+      </div>
+    {% endif %}
+</div>

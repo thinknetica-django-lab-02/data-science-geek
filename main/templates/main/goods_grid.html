@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+{% load custom_tags %}
+
+{% block head-extend %}{% endblock %}
 
 {% block title %}{{ title }}{% endblock %}
-{% block h1 %}<h1>{{ title }}</h1>{% endblock %}
 
 {% block content %}
   <div class="row row-cols-3 g-4">
@@ -14,10 +16,60 @@
         </div>
       {% endfor %}
     {% else %}
-      По Вашему запросу товаров не найдено
+      <p>По Вашему запросу товаров не найдено</p>
     {% endif %}
   </div>
 
   {% include 'main/snippets/pagination.html' %}
 
 {% endblock %}
+
+{% block sidebar %}
+<div class="col-3 border rounded ">
+  <div class="row">
+    <div class="card-body">
+      <span class="h4">Тэги</span>
+      {% get_tags_cloud %}
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="card-body">
+      <span class="h4">Бренды</span>
+      <div id="brands">
+          <div class="checkbox"><label><input type="checkbox" name="brands[]" value="1"> Apple</label></div>
+          <div class="checkbox"><label><input type="checkbox" name="brands[]" value="2"> Samsung</label></div>
+          <div class="checkbox"><label><input type="checkbox" name="brands[]" value="3"> Lenovo</label></div>
+          <div class="checkbox"><label><input type="checkbox" name="brands[]" value="4"> Что-то еще</label></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card-body">
+      <span class="h4">Фильтр по ценам</span>
+      <div id="prices-label">5000 - 50000 руб.</div>
+      <input type="hidden" id="min-price" name="min_price" value="5000">
+      <input type="hidden" id="max-price" name="max_price" value="50000">
+      <div id="prices"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card-body">
+      <span class="h4">Сортировка</span>
+      <br>
+      <select id="sort" name="sort" class="form-control">
+          <option value="price_asc">По цене, сначала дешевые</option>
+          <option value="price_desc">По цене, сначала дорогие</option>
+          <option value="good_asc">По названию, A-Z</option>
+          <option value="good_desc">По названию, Z-A</option>
+      </select>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+
+
